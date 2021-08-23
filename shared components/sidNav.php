@@ -260,10 +260,10 @@
                                 <a href="pages/examples/profile.html">Profile</a>
                             </li>
                             <li>
-                                <a href="pages/examples/sign-in.html">Sign In</a>
+                                <a href="sharedpages/login.php">Sign In</a>
                             </li>
                             <li>
-                                <a href="pages/examples/sign-up.html">Sign Up</a>
+                                <a href="sharedpages/register.php">Sign Up</a>
                             </li>
                             <li>
                                 <a href="pages/examples/forgot-password.html">Forgot Password</a>
