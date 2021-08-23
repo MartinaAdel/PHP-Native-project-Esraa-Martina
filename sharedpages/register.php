@@ -3,18 +3,6 @@
 require '../helpers/functions.php';
 require '../helpers/dbConnection.php';
 
-// function CleanInputs($input){
-
-// // return stripslashes(htmlspecialchars(trim($input)));
-// $input = trim($input);
-// $input = stripslashes($input);
-// $input = htmlspecialchars($input);
-
-// return $input;
-// }
-
-
-
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -27,9 +15,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $address = CleanInputs($_POST['address']) ;
   $phone = CleanInputs($_POST['phone']) ;
   $roleID   =  filter_var($_POST['role_id'],FILTER_SANITIZE_NUMBER_INT);
-
-
-
 
   if(empty($firstname)){
 
@@ -153,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <div class="signup-box">
         <div class="logo">
             <a href="javascript:void(0);">Admin<b>BSB</b></a>
-            <small>Admin BootStrap Based - Material Design</small>
+            <small>E-Learning</small>
         </div>
         <div class="card">
             <div class="body">
