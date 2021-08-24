@@ -18,9 +18,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
 
-    if(!validate($password,4)){
+    if(!validate($password,1)){
 
-       $errors['password'] = "Password Length Must > 5 ch";
+       $errors['password'] = "Password Required";
     }
 
 
@@ -35,11 +35,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }else{
 
        // code .... 
+       $password = sha1($password);
        $sql = "select * from user where email = '$email' and password = '$password'";
 
        $op = mysqli_query($con,$sql);
 
-       $password = md5($password);
+       
     //    echo mysqli_error($con);
     //    exit();
 
@@ -51,8 +52,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
          $_SESSION['user'] = $data;
 
-         header("location: index.php");
-         echo 'success';
+     header("location: ../Teacher/track/create.php");
+        //  echo 'success';
 
        }else{
         //    echo mysqli_error($con);

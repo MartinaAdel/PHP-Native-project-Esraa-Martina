@@ -1,3 +1,12 @@
+<!-- if(isset($_SESSION['user']))
+    {
+        echo 'yes';
+        $userID =  $_SESSION['user']['ID'];
+    }
+    else{
+        echo 'no';
+    } -->
+
 <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
