@@ -231,9 +231,9 @@ require 'shared components/header.php';
                                     <?php
 
                                     while ($rows = mysqli_fetch_assoc($op)) {
-                                        if ($rows['ID'] == 1)
-                                            continue;
-                                    ?>
+                                    //     if ($rows['ID'] == 0)
+                                    //         continue;
+                                    // ?>
 
                                         <option value="<?php echo $rows['ID']; ?>"> <?php echo ucfirst($rows['title']); ?></option>
 

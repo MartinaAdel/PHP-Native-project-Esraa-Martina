@@ -1,35 +1,28 @@
 
 <?php 
 
- require '../helpers/functions.php';
- require '../helpers/dbConnection.php';
-
+ require '../../helpers/functions.php';
+ require '../../helpers/dbConnection.php';
+ 
+ require '../../shared components/header.php';
+ require "../../shared components/nav.php";
 
   # fetch all admins Role ... 
 
-  $sql = "select * from adminstype";
+  $sql = "select * from role";
   $op  =  mysqli_query($con,$sql);
-
-
-
-
-   require '../header.php';
-   require "../nav.php";
 ?>
 
 <div id="layoutSidenav">
          
 <?php 
-   require '../sidNav.php';
-?>
+ require '../../shared components/sidNav.php';
+ ?>
 
 
 
             <div id="layoutSidenav_content">
                 <main>
-                   
-                
-                
                 <div class="container-fluid">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
@@ -102,5 +95,5 @@
                 
 <?php 
 
-    require '../footer.php';
+require '../../shared components/footer.php';
 ?>
