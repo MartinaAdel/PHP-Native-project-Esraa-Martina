@@ -48,18 +48,51 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors['roleID'] = "Invalid Department id ";
     }
 
-
-
+$finalPath = '';
+    if(!empty($_FILES['image']['name'])){
+        $name = $_FILES['image']['name'];
+        $temp = $_FILES['image']['tmp_name'];
+        $size = $_FILES['image']['size'];
+        $type = $_FILES['image']['type'];
+      
+        $nameArray =  explode('/',$type);
+    
+        $extension =  strtolower($nameArray[1]);
+      
+        $FinalName = rand().time().'.'.$extension;
+    
+        $allowedExt = array('png','jpg','jpeg'); 
+    
+        if(in_array($extension,$allowedExt)){
+             $folder = "./uploads/";
+    
+             $finalPath = $folder.$FinalName;
+    
+            if(move_uploaded_file($temp,$finalPath)){
+    
+              echo 'File Uploaded';
+            }else{
+    
+              echo 'error try again';
+            }
+        }else{
+    
+          echo 'Invalid Extension';
+        }
+     }else{
+    
+          echo 'File Required';
+         }  
 
     if (count($errors) <= 0) {
 
 
 
         $password =   sha1($password); // md5
-
-
         // code 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID')";
+        $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID' , '$finalPath')";
 
         $op =  mysqli_query($con, $sql);
 
@@ -151,14 +184,6 @@ require 'shared components/header.php';
                         </div>
                     </div>
 
-                    <!-- <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
-                        </div>
-                    </div> -->
                     <div class="row clearfix">
                         <div class="col-sm-6">
                             <div class="input-group">
@@ -196,6 +221,16 @@ require 'shared components/header.php';
                         </div>
                     </div>
 
+                    
+                    <div class="input-group"> 
+                        <span class="input-group-addon">
+                            <i class="material-icons">add_a_photo</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="file" class="form-control" name="image"  placeholder="Add a photo" >
+                        </div>
+                    </div> 
+                    
                     <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">SIGN UP</button>
 
                     <div class="m-t-25 m-b--5 align-center">
