@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
         // code 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,role_ID) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID')";
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID')";
 
         $op =  mysqli_query($con, $sql);
 
