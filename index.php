@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $_SESSION['user'] = $data;
 
-            header("location: ../Teacher/track/create.php");
+            header("location: Teacher/track/index.php");
         } else {
             //    echo mysqli_error($con);
             //    exit();
@@ -88,7 +88,7 @@ require 'shared components/header.php';
                             <label for="rememberme">Remember Me</label> -->
                         </div>
                         <div class="col-xs-4">
-                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                            <button class="btn btn-success  waves-effect" type="submit">SIGN IN</button>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">

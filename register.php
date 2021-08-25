@@ -183,7 +183,7 @@ require 'shared components/header.php';
                     </div> -->
                    
 
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+                    <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">SIGN UP</button>
 
                     <div class="m-t-25 m-b--5 align-center">
                         <a href="index.php">You already have a membership?</a>
