@@ -56,12 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <section class="content">
     <div class="container-fluid">
-        <div class="block-header">
-            <h2> Add track</h2>
-
-
-        </div>
-
 
         <!-- Inline Layout | With Floating Label -->
         <div class="row clearfix">

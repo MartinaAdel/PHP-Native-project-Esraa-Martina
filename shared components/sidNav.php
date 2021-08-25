@@ -60,7 +60,13 @@ if (isset($_SESSION['user'])) {
                     <li class="active">
                         <a href="/NTI/E-learning project/Teacher/track/index.php">
                             <i class="material-icons">library_books</i>
-                            <span>Tracks</span>
+                            <span>All Tracks</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/NTI/E-learning project/Teacher/track/create.php">
+                            <i class="material-icons">library_add</i>
+                            <span>Add Track</span>
                         </a>
                     </li>
                 <?php } elseif ($userRole == 3) {
