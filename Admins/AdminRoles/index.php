@@ -76,8 +76,8 @@
                                                 <td><?php echo $rows['title'];?></td>
                                                 
                  <td>
-                 <a href='delete.php?id=<?php echo $rows['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                 <a href='edit.php?id=<?php echo $rows['id'];?>' class='btn btn-primary m-r-1em'>Edit</a>       
+                 <!-- <a href='delete.php?id=<?php echo $rows['id'];?>' class='btn btn-danger m-r-1em'>Delete</a> -->
+                 <a href='edit.php?id=<?php echo $rows['ID'];?>' class='btn btn-primary m-r-1em'>Edit</a>       
                 </td> 
                                            
                                             </tr>
