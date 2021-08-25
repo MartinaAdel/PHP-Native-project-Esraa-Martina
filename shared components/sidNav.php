@@ -1,8 +1,9 @@
 <?php
 if (isset($_SESSION['user'])) {
     $userID =  $_SESSION['user']['ID'];
-    $userName = $_SESSION['user']['Fname'].' '.$_SESSION['user']['Lname'];
+    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'];
     $userEmail = $_SESSION['user']['email'];
+    $userRole = $_SESSION['user']['roleID'];
 } else {
     echo 'no';
 }
@@ -34,36 +35,45 @@ if (isset($_SESSION['user'])) {
         <!-- Menu -->
         <div class="menu">
             <ul class="list">
-                <li class="header">Admin NAVIGATION</li>
-                <li class="active">
-                    <a href="/NTI/E-learning project/Admins/Admins/index.php">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/NTI/E-learning project/Admins/AdminRoles/index.php">
-                        <i class="material-icons">supervisor_account</i>
-                        <span>Roles</span>
-                    </a>
-                </li>
-                
-                <li class="header">Teacher NAVIGATION</li>
-                <li class="active">
-                    <a href="/NTI/E-learning project/Teacher/track/index.php">
-                        <i class="material-icons">library_books</i>
-                        <span>Tracks</span>
-                    </a>
-                </li>
+                <?php
+                if ($userRole == 1) { ?>
+                    <li class="header">Admin NAVIGATION</li>
+                    <li class="active">
+                        <a href="/NTI/E-learning project/Admins/Admins/index.php">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/NTI/E-learning project/Admins/AdminRoles/index.php">
+                            <i class="material-icons">supervisor_account</i>
+                            <span>Roles</span>
+                        </a>
+                    </li>
 
-                <li class="header">Student NAVIGATION</li>
-                <li class="active">
-                    <a href="/NTI/E-learning project/Teacher/track/index.php">
-                        <i class="material-icons">library_books</i>
-                        <span>My Tracks</span>
-                    </a>
-                </li>
+                <?php } elseif ($userRole == 2) {
 
+                ?>
+
+                    <li class="header">Teacher NAVIGATION</li>
+                    <li class="active">
+                        <a href="/NTI/E-learning project/Teacher/track/index.php">
+                            <i class="material-icons">library_books</i>
+                            <span>Tracks</span>
+                        </a>
+                    </li>
+                <?php } elseif ($userRole == 3) {
+
+                ?>
+                    <li class="header">Student NAVIGATION</li>
+                    <li class="active">
+                        <a href="/NTI/E-learning project/Teacher/track/index.php">
+                            <i class="material-icons">library_books</i>
+                            <span>My Tracks</span>
+                        </a>
+                    </li>
+                <?php }
+                ?>
             </ul>
         </div>
         <!-- #Menu -->
@@ -79,5 +89,5 @@ if (isset($_SESSION['user'])) {
         <!-- #Footer -->
     </aside>
     <!-- #END# Left Sidebar -->
-    
+
 </section>

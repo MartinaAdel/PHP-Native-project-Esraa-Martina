@@ -43,10 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
 
-    // if (!filter_var($roleID, FILTER_VALIDATE_INT)) {
+    if (!filter_var($roleID, FILTER_VALIDATE_INT)) {
 
-    //     $errors['roleID'] = "Invalid Department id ";
-    // }
+        $errors['roleID'] = "Invalid Department id ";
+    }
 
 
 
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
         // code 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password) values ('$firstname','$lastName','$email','$address','$phone','$password')";
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,role_ID) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID')";
 
         $op =  mysqli_query($con, $sql);
 
@@ -68,19 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo 'data Inserted';
             header("location: index.php");
         } else {
-            $errors['-'] = 'Error Try Again';
+            // $errors['-'] = 'Error Try Again';
 
             $errors['sql'] =  mysqli_error($con);
-            exit();
+            // exit();
         }
     }
 }
-// # Fetch departments 
+# Fetch departments 
 
-// $sql = "select * from role";
-// $op  = mysqli_query($con, $sql);
+$sql = "select * from role";
+$op  = mysqli_query($con, $sql);
 
-// mysqli_close($con);
+mysqli_close($con);
 
 require 'shared components/header.php';
 
@@ -101,7 +101,7 @@ require 'shared components/header.php';
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="firstName" placeholder="First Name"  autofocus>
+                            <input type="text" class="form-control" name="firstName" placeholder="First Name" autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -109,7 +109,7 @@ require 'shared components/header.php';
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="lastName" placeholder="LastName"  >
+                            <input type="text" class="form-control" name="lastName" placeholder="LastName">
                         </div>
                     </div>
                     <div class="input-group">
@@ -117,7 +117,7 @@ require 'shared components/header.php';
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address" >
+                            <input type="text" class="form-control" name="email" placeholder="Email Address">
                         </div>
                     </div>
                     <div class="input-group">
@@ -125,7 +125,7 @@ require 'shared components/header.php';
                             <i class="material-icons">home</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="address" placeholder="address"  >
+                            <input type="text" class="form-control" name="address" placeholder="address">
                         </div>
                     </div>
                     <div class="input-group">
@@ -133,7 +133,7 @@ require 'shared components/header.php';
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password"  placeholder="Password" >
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                     </div>
                     <!-- <div class="input-group">
@@ -149,39 +149,33 @@ require 'shared components/header.php';
                             <i class="material-icons">call</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="phone" placeholder="phone"  >
+                            <input type="text" class="form-control" name="phone" placeholder="phone">
                         </div>
                     </div>
-                    <!-- <div class="input-group">
+
+
+                    <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons-round">role</i>
+                            <i class="material-icons">assignment_ind</i>
                         </span>
-                        <select name="role_id" class="form-control">-->
-                            <?php
+                        <select name="role_id" class="form-control show-tick">
+                            <option value="">-- Register as --</option>                        
+                        <?php
 
-                            // while ($rows = mysqli_fetch_assoc($op)) {
-                            ?>
+                        while ($rows = mysqli_fetch_assoc($op)) {
+                            if ($rows['ID'] == 1)
+                                continue;
+                        ?>
 
-                                <!-- <option value="
-                                
-                                <?php 
-                                // echo $rows['ID']; 
-                                ?>
-                                
-                                
-                                "> <?php 
-                                // echo $rows['title']; 
-                                ?>
-                            
-                            </option> -->
+                            <option value="<?php echo $rows['ID']; ?>"> <?php echo ucfirst($rows['title']); ?></option>
 
-                            <?php 
-                            // } 
-                            ?>
+                        <?php
+                        }
+                        ?>
 
-                        <!--</select>
-                    </div> -->
-                   
+                        </select>
+                    </div>
+
 
                     <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">SIGN UP</button>
 
