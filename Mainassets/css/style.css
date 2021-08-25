@@ -4996,7 +4996,7 @@ section.content {
 /* Input Group ================================= */
 .input-group {
   width: 100%;
-  margin-bottom: 20px; }
+  margin-bottom: 10px; }
   .input-group .form-line {
     display: inline-block;
     width: 100%;
@@ -7797,8 +7797,8 @@ fieldset[disabled] .form-control {
 .signup-page {
   background-color: #00BCD4;
   padding-left: 0;
-  max-width: 360px;
-  margin: 5% auto;
+  max-width: 760px;
+  margin: 2% auto;
   overflow-x: hidden; }
   .signup-page .signup-box .msg {
     color: #555;

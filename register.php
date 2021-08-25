@@ -96,28 +96,50 @@ require 'shared components/header.php';
             <div class="body">
                 <form id="sign_up" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
                     <div class="msg">Register a new membership</div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="firstName" placeholder="First Name" autofocus>
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="firstName" placeholder="First Name" autofocus>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="lastName" placeholder="LastName">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="lastName" placeholder="LastName">
+
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">email</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="email" placeholder="Email Address">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="input-group">
@@ -128,14 +150,7 @@ require 'shared components/header.php';
                             <input type="text" class="form-control" name="address" placeholder="address">
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                        </div>
-                    </div>
+
                     <!-- <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">lock</i>
@@ -144,38 +159,42 @@ require 'shared components/header.php';
                             <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
                         </div>
                     </div> -->
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">call</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="phone" placeholder="phone">
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">call</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="phone" placeholder="phone">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">assignment_ind</i>
+                                </span>
+                                <select name="role_id" class="form-control bootstrap-select show-tick">
+                                    <option value="">-- Register as --</option>
+                                    <?php
+
+                                    while ($rows = mysqli_fetch_assoc($op)) {
+                                        if ($rows['ID'] == 1)
+                                            continue;
+                                    ?>
+
+                                        <option value="<?php echo $rows['ID']; ?>"> <?php echo ucfirst($rows['title']); ?></option>
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">assignment_ind</i>
-                        </span>
-                        <select name="role_id" class="form-control show-tick">
-                            <option value="">-- Register as --</option>                        
-                        <?php
-
-                        while ($rows = mysqli_fetch_assoc($op)) {
-                            if ($rows['ID'] == 1)
-                                continue;
-                        ?>
-
-                            <option value="<?php echo $rows['ID']; ?>"> <?php echo ucfirst($rows['title']); ?></option>
-
-                        <?php
-                        }
-                        ?>
-
-                        </select>
-                    </div>
-
 
                     <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">SIGN UP</button>
 
