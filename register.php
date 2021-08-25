@@ -3,18 +3,20 @@
 require 'helpers/functions.php';
 require 'helpers/dbConnection.php';
 
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-    $errors = [];
-
     $firstname  = CleanInputs($_POST['firstName']);
     $lastName = CleanInputs($_POST['lastName']);
     $email = CleanInputs($_POST['email']);
     $password = CleanInputs($_POST['password']);
     $address = CleanInputs($_POST['address']);
     $phone = CleanInputs($_POST['phone']);
+    $job = CleanInputs($_POST['job']);
+    $education = CleanInputs($_POST['education']);
     $roleID   =  filter_var($_POST['role_id'], FILTER_SANITIZE_NUMBER_INT);
+    $createdDate = "Created date is " . date("Y-m-d h:i:sa", $d);
+
 
     if (empty($firstname)) {
 
@@ -48,18 +50,51 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors['roleID'] = "Invalid Department id ";
     }
 
-
-
+$finalPath = '';
+    if(!empty($_FILES['image']['name'])){
+        $name = $_FILES['image']['name'];
+        $temp = $_FILES['image']['tmp_name'];
+        $size = $_FILES['image']['size'];
+        $type = $_FILES['image']['type'];
+      
+        $nameArray =  explode('/',$type);
+    
+        $extension =  strtolower($nameArray[1]);
+      
+        $FinalName = rand().time().'.'.$extension;
+    
+        $allowedExt = array('png','jpg','jpeg'); 
+    
+        if(in_array($extension,$allowedExt)){
+             $folder = "./uploads/";
+    
+             $finalPath = $folder.$FinalName;
+    
+            if(move_uploaded_file($temp,$finalPath)){
+    
+              echo 'File Uploaded';
+            }else{
+    
+              echo 'error try again';
+            }
+        }else{
+    
+          echo 'Invalid Extension';
+        }
+     }else{
+    
+          echo 'File Required';
+         }  
 
     if (count($errors) <= 0) {
 
 
 
         $password =   sha1($password); // md5
-
-
         // code 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,role_ID) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID')";
+        $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir , job , education, createdDate,modifiedDate) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID' , '$finalPath' , '$job','$education','$createdDate','$createdDate')";
 
         $op =  mysqli_query($con, $sql);
 
@@ -120,7 +155,7 @@ require 'shared components/header.php';
                     </div>
 
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">email</i>
@@ -130,7 +165,7 @@ require 'shared components/header.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">lock</i>
@@ -151,16 +186,8 @@ require 'shared components/header.php';
                         </div>
                     </div>
 
-                    <!-- <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
-                        </div>
-                    </div> -->
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">call</i>
@@ -170,8 +197,31 @@ require 'shared components/header.php';
                                 </div>
                             </div>
 
+                            <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">work</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="job" placeholder="job">
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">school</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="education" placeholder="Education" >
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-sm-6">
+                        
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">assignment_ind</i>
@@ -196,6 +246,16 @@ require 'shared components/header.php';
                         </div>
                     </div>
 
+                    
+                    <div class="input-group"> 
+                        <span class="input-group-addon">
+                            <i class="material-icons">add_a_photo</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="file" class="form-control" name="image"  placeholder="Add a photo" >
+                        </div>
+                    </div> 
+                    
                     <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">SIGN UP</button>
 
                     <div class="m-t-25 m-b--5 align-center">

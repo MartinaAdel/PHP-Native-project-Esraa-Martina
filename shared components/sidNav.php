@@ -1,9 +1,10 @@
 <?php
 if (isset($_SESSION['user'])) {
     $userID =  $_SESSION['user']['ID'];
-    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'];
+    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lnme'];
     $userEmail = $_SESSION['user']['email'];
     $userRole = $_SESSION['user']['roleID'];
+    $imgdir = $_SESSION['user']['img_dir'];
 } else {
     echo 'no';
 }
@@ -16,7 +17,7 @@ if (isset($_SESSION['user'])) {
         <!-- User Info -->
         <div class="user-info">
             <div class="image">
-                <img src="/NTI/E-learning project/Mainassets/images/user.png" width="48" height="48" alt="User" />
+                <img src="/NTI/E-learning project<?php echo $imgdir;?>" width="48" height="48" alt="User" />
             </div>
             <div class="info-container">
                 <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userName ?></div>
@@ -24,7 +25,7 @@ if (isset($_SESSION['user'])) {
                 <div class="btn-group user-helper-dropdown">
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                        <li><a href="/NTI/E-learning project/profile.php"><i class="material-icons">person</i>Profile</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/NTI/E-learning project/logout.php"><i class="material-icons">input</i>Sign Out</a></li>
                     </ul>
