@@ -1,7 +1,7 @@
 <?php
 if (isset($_SESSION['user'])) {
     $userID =  $_SESSION['user']['ID'];
-    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'];
+    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lnme'];
     $userEmail = $_SESSION['user']['email'];
     $userRole = $_SESSION['user']['roleID'];
     $imgdir = $_SESSION['user']['img_dir'];

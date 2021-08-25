@@ -2,13 +2,14 @@
 
 require 'helpers/functions.php';
 require 'helpers/dbConnection.php';
+$errors = [];
+
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $email = CleanInputs($_POST['email']);
     $password = $_POST['password'];
 
-    $errors = [];
     if (!validate($email, 1)) {
 
         $errors['email'] = "Email Field Required";

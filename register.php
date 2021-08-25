@@ -3,18 +3,20 @@
 require 'helpers/functions.php';
 require 'helpers/dbConnection.php';
 
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-    $errors = [];
-
     $firstname  = CleanInputs($_POST['firstName']);
     $lastName = CleanInputs($_POST['lastName']);
     $email = CleanInputs($_POST['email']);
     $password = CleanInputs($_POST['password']);
     $address = CleanInputs($_POST['address']);
     $phone = CleanInputs($_POST['phone']);
+    $job = CleanInputs($_POST['job']);
+    $education = CleanInputs($_POST['education']);
     $roleID   =  filter_var($_POST['role_id'], FILTER_SANITIZE_NUMBER_INT);
+    $createdDate = "Created date is " . date("Y-m-d h:i:sa", $d);
+
 
     if (empty($firstname)) {
 
@@ -92,7 +94,7 @@ $finalPath = '';
         // code 
         $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID' , '$finalPath')";
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir , job , education, createdDate,modifiedDate) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID' , '$finalPath' , '$job','$education','$createdDate','$createdDate')";
 
         $op =  mysqli_query($con, $sql);
 
@@ -153,7 +155,7 @@ require 'shared components/header.php';
                     </div>
 
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">email</i>
@@ -163,7 +165,7 @@ require 'shared components/header.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">lock</i>
@@ -185,7 +187,7 @@ require 'shared components/header.php';
                     </div>
 
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">call</i>
@@ -195,8 +197,31 @@ require 'shared components/header.php';
                                 </div>
                             </div>
 
+                            <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">work</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="job" placeholder="job">
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">school</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="education" placeholder="Education" >
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-sm-6">
+                        
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="material-icons">assignment_ind</i>
