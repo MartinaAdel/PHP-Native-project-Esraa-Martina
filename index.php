@@ -43,8 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $data = mysqli_fetch_assoc($op);
 
             $_SESSION['user'] = $data;
-
-            header("location: Teacher/track/index.php");
+            if ($data['roleID'] == 1) {
+                header("location: Admins/Admins/index.php");
+            } elseif ($data['roleID'] == 2) {
+                header("location: Teacher/track/index.php");
+            } else {
+                header("location: Student/enroll track/index.php");
+            }
         } else {
             //    echo mysqli_error($con);
             //    exit();

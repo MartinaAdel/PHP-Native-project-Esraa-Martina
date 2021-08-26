@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo mysqli_error($con);
             exit();
         }
-        header("Location: index.php?trackID=$trackID");
+        // header("Location: index.php?trackID=$trackID");
     }
 }
 

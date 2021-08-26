@@ -4,7 +4,7 @@ if (isset($_SESSION['user'])) {
     $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lnme'];
     $userEmail = $_SESSION['user']['email'];
     $userRole = $_SESSION['user']['roleID'];
-    $imgdir = $_SESSION['user']['img_dir'];
+    $imgdir = substr($_SESSION['user']['img_dir'], 1);
 } else {
     echo 'no';
 }
