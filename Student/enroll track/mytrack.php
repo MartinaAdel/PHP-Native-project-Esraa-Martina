@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])) {
 
 $no_track = true;
 
-$sql = "SELECT * FROM `track`";
+$sql = "SELECT track.title as title FROM track INNER JOIN study ON study.trackID = track.ID where study.studentID = $userID";
 
 $op = mysqli_query($con, $sql);
 
@@ -39,7 +39,7 @@ mysqli_close($con);
                 <div class="card">
                     <div class="header">
                         <h2>
-                            All tracks
+                            My tracks
                         </h2>
 
                     </div>
@@ -58,8 +58,10 @@ mysqli_close($con);
                                     </h2>
                                 </div>
                                 <div class="body align-right">
-                                        <!-- <a href='../../Teacher/lesson/index.php?trackID=<?php //echo $row['ID']; ?>' class='btn btn-warning m-r-1em '>Show</a> -->
-                                        <a href='enroll.php?id=<?php echo $row['ID']; ?>' class='btn btn-primary m-r-1em'>Enroll</a>
+                                        <a href='show.php?trackID=<?php echo $row['ID']; ?>' class='btn btn-warning m-r-1em '>Show</a>
+                                        <!-- <a href='enroll.php?id=
+                                        <?php //echo $row['ID']; ?>
+                                        ' class='btn btn-primary m-r-1em'>Enroll</a> -->
 
                                         <!-- <a href='edit.php?id=<?php //echo $row['ID']; ?>' class='btn btn-primary m-r-1em'>Edit</a>
 

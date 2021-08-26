@@ -76,6 +76,12 @@ if (isset($_SESSION['user'])) {
                     <li class="active">
                         <a href="/NTI/E-learning project/Student/enroll track/index.php">
                             <i class="material-icons">library_books</i>
+                            <span>All Tracks</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/NTI/E-learning project/Student/enroll track/mytrack.php">
+                            <i class="material-icons">library_books</i>
                             <span>My Tracks</span>
                         </a>
                     </li>
