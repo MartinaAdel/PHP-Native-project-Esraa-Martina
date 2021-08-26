@@ -5,6 +5,12 @@ require '../../shared components/header.php';
 require "../../shared components/nav.php";
 require '../../shared components/sidNav.php';
 
+if (isset($_SESSION['user'])) {
+    $userID =  $_SESSION['user']['ID'];
+    $userName = $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'];
+    $userEmail = $_SESSION['user']['email'];
+    $userRole = $_SESSION['user']['roleID'];
+}
 
 $trackID = Sanitize($_GET['trackID'], 1);
 
@@ -43,10 +49,12 @@ mysqli_close($con);
                         <h2 class="p-b-15">
                             All lessons
 
+                            <?php if($userRole == 2) { ?>
                             <a href='create.php?trackID=<?php echo $trackID; ?>' class='btn btn-warning m-r-1em waves-effect pull-right'>
                                 <i class="material-icons">add_box</i>
                                 <span>Add lesson</span>
                             </a>
+                            <?php }?>
 
                         </h2>
 
