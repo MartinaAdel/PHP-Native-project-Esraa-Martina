@@ -52,7 +52,7 @@ require '../../shared components/sidNav.php';
 
                                     <td>
                                         <a href='delete.php?id=<?php echo $rows['ID']; ?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                        <!-- <a href='edit.php?id=<?php echo $rows['ID']; ?>' class='btn btn-primary m-r-1em'>Edit</a>        -->
+                                        <a href='edit.php?id=<?php echo $rows['ID']; ?>' class='btn btn-primary m-r-1em'>Change Role</a>       
                                     </td>
 
                                 </tr>

@@ -1,140 +1,160 @@
-<?php 
+<?php
 
 require '../../helpers/functions.php';
 require '../../helpers/dbConnection.php';
 
 # Validate & Sanitize id 
 
-    $id = Sanitize($_GET['id'],1);
+$id = Sanitize($_GET['id'], 1);
 
 
-    if(!validate($id,2)){
-    
-        $_SESSION['messages'] = "invalid id ";
-        header("Location: index.php");
-       }
+if (!validate($id, 2)) {
+
+    $_SESSION['messages'] = "invalid id ";
+    header("Location: index.php");
+}
 
 
 
 
 
- # Form Logic ... 
+# Form Logic ... 
 
- if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // CODE .... 
 
-    $title = CleanInputs($_POST['title']);
+    $role = $_POST['roleID'];
 
-     $erros = [];
-     # Validate Input ... 
-    if(!validate($title,1))
-    {
-      $erros['title'] = "Title Field Required";
+    $erros = [];
+    # Validate Input ... 
+    if (!validate($role, 2)) {
+        $erros['role'] = " invalid role id";
     }
 
-    if(count($erros) > 0){
+    if (count($erros) > 0) {
 
         $_SESSION['errormessages'] = $erros;
-    }else{
+    } else {
 
-   # db Logic 
-   $sql = "update role set title = '$title' where ID = $id";
-   $op = mysqli_query($con,$sql);
+        # db Logic 
+        $sql = "UPDATE `user` SET `roleID`=$role WHERE `ID`= $id";
+        $op = mysqli_query($con, $sql);
 
-     if($op){
-        
-        $_SESSION['messages'] = 'Record Updated';
+        if ($op) {
+            echo $sql;
 
-         header("location: index.php");
-     }else{
-         $_SESSION['errormessages'] = ['error try again'];
-      }
+            $_SESSION['messages'] = 'Record Updated';
 
+            header("location: index.php");
+        } else {
+            $_SESSION['errormessages'] = ['error try again'];
+        }
     }
-
-
- }
+}
 
 
 
 # Fetch data ... 
-$sql  = "select * from role where ID=$id";
-$op   = mysqli_query($con,$sql);
-$data = mysqli_fetch_assoc($op);    
+$sql  = "select roleID from user where ID=$id";
+$op   = mysqli_query($con, $sql);
+$data = mysqli_fetch_assoc($op);
+
+
+$sql2  = "select * from role";
+$op2   = mysqli_query($con, $sql2);
 
 require '../../shared components/header.php';
 require "../../shared components/nav.php";
-?>
-
-<div id="layoutSidenav">
-
-    <?php 
- require '../../shared components/sidNav.php';
+require '../../shared components/sidNav.php';
 ?>
 
 
+<section class="content">
+    <div class="container-fluid">
 
-    <div id="layoutSidenav_content">
+        <!-- Inline Layout | With Floating Label -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            update role
+                        </h2>
 
+                    </div>
+                    <div class="body">
+                        <form method="post" action="edit.php?id=<?php echo $id; ?>" enctype="multipart/form-data">
+                            <div class="row clearfix">
+                                
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="">
+                                            <div class="demo-radio-button pull-right">
 
-        <main>
+                                                <?php
+                                                while ($rows = mysqli_fetch_assoc($op2)) {
+                                                    
+                                                    echo '
+                                                    <input name="roleID" value="' . $rows['ID'] . '" type="radio" class="with-gap radio-col-light-green" id="radio_' . $rows['ID'] . '" ';
+                                                    if ($data['roleID'] == $rows['ID']) {
+                                                        echo 'checked';
+                                                    }
+                                                    echo '/>
+                                                    <label for="radio_' . $rows['ID'] . '"> ' . $rows['title'] . '</label>
+                                                    ';
+                                                }
 
+                                                ?>
 
-            <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
+                                               
+                                            </div>
 
+                                            <label class="form-label">Role</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                   <?php 
-                        # Dispaly error messages .... 
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                        if(isset($_SESSION['errormessages'])){
-                            foreach ($_SESSION['errormessages'] as  $value) {
-                                # code...
-                                echo '<li class="breadcrumb-item active">'.$value.'</li>';
-                            }
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg m-l-15 pull-right waves-effect">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-                            unset($_SESSION['errormessages']);
-                        }else{
-                        echo '<li class="breadcrumb-item active">Dashboard</li>';
+                    <?php
+                    # Dispaly error messages .... 
 
+                    if (isset($_SESSION['messages'])) {
+                        foreach ($_SESSION['messages'] as  $value) {
+                            # code...
+                            echo '
+                            <div class="form-group form-float">
+                                    <div class="form-line focused error">
+                                        <input type="text" class="form-control" name="error" value="' . $value . '" >
+                                    </div>
+                                </div>
+                            
+                            
+                            ';
                         }
-                   
-                   ?>
 
+                        unset($_SESSION['messages']);
+                    }
 
-                </ol>
+                    ?>
 
-
-
-                <div class="container">
-
-                    <form method="post" action="edit.php?id=<?php echo $data['ID'];?>"
-                        enctype="multipart/form-data">
-
-
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" name="title" value="<?php echo $data['title'];?>" class="form-control" id="exampleInputName"
-                                aria-describedby="" placeholder="Enter Title">
-                        </div>
-
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
                 </div>
-
-
-
             </div>
-        </main>
+        </div>
+        <!-- #END# Inline Layout | With Floating Label -->
+
+    </div>
+</section>
 
 
+<?php
 
-
-        <?php 
-
-    require '../footer.php';
+require '../../shared components/footer.php';
 ?>
