@@ -41,17 +41,22 @@ if (isset($_SESSION['user'])) {
                     <li class="header">Admin NAVIGATION</li>
                     <li class="active">
                         <a href="/NTI/E-learning project/Admins/Admins/index.php">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
+                            <i class="material-icons">supervisor_account</i>
+                            <span>Users</span>
                         </a>
                     </li>
                     <li>
                         <a href="/NTI/E-learning project/Admins/AdminRoles/index.php">
-                            <i class="material-icons">supervisor_account</i>
+                            <i class="material-icons">account_box</i>
                             <span>Roles</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="/NTI/E-learning project/Admins/Admins/allTracks.php">
+                            <i class="material-icons">library_books</i>
+                            <span>All Tracks</span>
+                        </a>
+                    </li>
                 <?php } elseif ($userRole == 2) {
 
                 ?>
