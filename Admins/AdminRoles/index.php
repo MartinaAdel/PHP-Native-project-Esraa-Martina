@@ -3,20 +3,24 @@
 require '../helpers/functions.php';
 require '../helpers/dbConnection.php';
 
-
-# fetch all admins Role ... 
+ require '../../helpers/functions.php';
+ require '../../helpers/dbConnection.php';
+ 
+ require '../../shared components/header.php';
+ require "../../shared components/nav.php";
 
 $sql = "select * from adminstype";
 $op  =  mysqli_query($con, $sql);
 
-
-
-
-require '../header.php';
-require "../nav.php";
+  $sql = "select * from role";
+  $op  =  mysqli_query($con,$sql);
 ?>
 
 <div id="layoutSidenav">
+         
+<?php 
+ require '../../shared components/sidNav.php';
+ ?>
 
     <?php
     require '../sidNav.php';
@@ -28,6 +32,12 @@ require "../nav.php";
         <main>
 
 
+            <div id="layoutSidenav_content">
+                <main>
+                <div class="container-fluid">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            
 
             <div class="container-fluid">
                 <h1 class="mt-4">Dashboard</h1>
@@ -77,28 +87,28 @@ require "../nav.php";
 
                                     ?>
                                         <tr>
-                                            <td><?php echo $i++; ?></td>
-                                            <td><?php echo $rows['title']; ?></td>
-
-                                            <td>
-                                                <a href='delete.php?id=<?php echo $rows['id']; ?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $rows['id']; ?>' class='btn btn-primary m-r-1em'>Edit</a>
-                                            </td>
-
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
+                                                <td><?php echo $i++; ?></td>
+                                                <td><?php echo $rows['title'];?></td>
+                                                
+                 <td>
+                 <!-- <a href='delete.php?id=<?php echo $rows['id'];?>' class='btn btn-danger m-r-1em'>Delete</a> -->
+                 <a href='edit.php?id=<?php echo $rows['ID'];?>' class='btn btn-primary m-r-1em'>Edit</a>       
+                </td> 
+                                           
+                                            </tr>
+                                  <?php } ?>         
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </main>
+                </main>
+               
+               
+           
+                
+<?php 
 
-
-
-
-        <?php
-
-        require '../footer.php';
-        ?>
+require '../../shared components/footer.php';
+?>

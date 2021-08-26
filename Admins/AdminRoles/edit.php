@@ -1,8 +1,7 @@
 <?php 
 
- require '../helpers/functions.php';
- require '../helpers/dbConnection.php';
-
+require '../../helpers/functions.php';
+require '../../helpers/dbConnection.php';
 
 # Validate & Sanitize id 
 
@@ -40,7 +39,7 @@
     }else{
 
    # db Logic 
-   $sql = "update adminstype set title = '$title' where id = $id";
+   $sql = "update role set title = '$title' where ID = $id";
    $op = mysqli_query($con,$sql);
 
      if($op){
@@ -60,22 +59,18 @@
 
 
 # Fetch data ... 
-$sql  = "select * from adminstype where id=$id";
+$sql  = "select * from role where ID=$id";
 $op   = mysqli_query($con,$sql);
 $data = mysqli_fetch_assoc($op);    
 
-
-
-
-   require '../header.php';
-   require "../nav.php";
-
+require '../../shared components/header.php';
+require "../../shared components/nav.php";
 ?>
 
 <div id="layoutSidenav">
 
     <?php 
-   require '../sidNav.php';
+ require '../../shared components/sidNav.php';
 ?>
 
 
@@ -115,7 +110,7 @@ $data = mysqli_fetch_assoc($op);
 
                 <div class="container">
 
-                    <form method="post" action="edit.php?id=<?php echo $data['id'];?>"
+                    <form method="post" action="edit.php?id=<?php echo $data['ID'];?>"
                         enctype="multipart/form-data">
 
 
@@ -135,11 +130,7 @@ $data = mysqli_fetch_assoc($op);
 
             </div>
         </main>
-
-
-
-
         <?php 
 
-    require '../footer.php';
+require '../../shared components/footer.php';
 ?>

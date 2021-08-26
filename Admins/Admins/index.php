@@ -1,35 +1,29 @@
 
 <?php 
 
-require '../helpers/functions.php';
-require '../helpers/dbConnection.php';
+require '../../helpers/functions.php';
+require '../../helpers/dbConnection.php';
 
 
  # fetch all admins Role ... 
 
- $sql = "select admins.*,adminstype.title as title   from admins join adminstype on admins.role_id = adminstype.id";
+ $sql = "select user.*,role.title as title   from user join role on user.roleID = role.ID";
  $op  =  mysqli_query($con,$sql);
 
 //    echo  mysqli_error($con); 
 //    exit();
 
-  require '../header.php';
-  require "../nav.php";
+require '../../shared components/header.php';
+require '../../shared components/nav.php';
 ?>
 
 <div id="layoutSidenav">
         
 <?php 
-  require '../sidNav.php';
-?>
-
-
-
+ require '../../shared components/sidNav.php';
+ ?>
            <div id="layoutSidenav_content">
-               <main>
-                  
-               
-               
+               <main>                  
                <div class="container-fluid">
                        <h1 class="mt-4">Dashboard</h1>
                        <ol class="breadcrumb mb-4">
@@ -82,13 +76,13 @@ require '../helpers/dbConnection.php';
                                 ?>         
                                        <tr>
                                                <td><?php echo $i++; ?></td>
-                                               <td><?php echo $rows['name'];?></td>
+                                               <td><?php echo $rows['Fname']. ' ' . $rows['Lnme'];?></td>
                                                <td><?php echo $rows['email'];?></td>                                               
                                                <td><?php echo $rows['title'];?></td>
                                                
                 <td>
-                <a href='delete.php?id=<?php echo $rows['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                <a href='edit.php?id=<?php echo $rows['id'];?>' class='btn btn-primary m-r-1em'>Edit</a>       
+                <a href='delete.php?id=<?php echo $rows['ID'];?>' class='btn btn-danger m-r-1em'>Delete</a>
+                <!-- <a href='edit.php?id=<?php echo $rows['ID'];?>' class='btn btn-primary m-r-1em'>Edit</a>        -->
                </td> 
                                           
                                            </tr>
@@ -106,5 +100,5 @@ require '../helpers/dbConnection.php';
                
 <?php 
 
-   require '../footer.php';
+require '../../shared components/footer.php';
 ?>
