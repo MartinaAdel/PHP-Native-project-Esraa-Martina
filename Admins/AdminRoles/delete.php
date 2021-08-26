@@ -1,7 +1,7 @@
 <?php 
 
-require '../helpers/functions.php';
-require '../helpers/dbConnection.php';
+require '../../helpers/functions.php';
+require '../../helpers/dbConnection.php';
 
 $id = Sanitize($_GET['id'],1);
 
@@ -12,7 +12,7 @@ $id = Sanitize($_GET['id'],1);
 
  }else{
 
-   $sql = "delete from adminstype where id = $id";
+   $sql = "delete from role where ID = $id";
    $op  = mysqli_query($con,$sql);
 
    if($op){

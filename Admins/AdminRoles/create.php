@@ -1,126 +1,130 @@
-<?php 
+<?php
+require '../../helpers/functions.php';
+require '../../helpers/dbConnection.php';
+require '../../shared components/header.php';
+require "../../shared components/nav.php";
+require '../../shared components/sidNav.php';
 
- require '../helpers/functions.php';
- require '../helpers/dbConnection.php';
+$trackID = Sanitize($_GET['trackID'], 1);
 
- # Form Logic ... 
 
- if($_SERVER['REQUEST_METHOD'] == "POST"){
+if (!validate($id, 2)) {
+
+    $_SESSION['messages'] = "invalid id ";
+    header("Location: http://localhost/NTI/E-learning project/Teacher/track/index.php");
+}
+
+
+# Form Logic ... 
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+
+
 
     // CODE .... 
 
     $title = CleanInputs($_POST['title']);
 
-     $erros = [];
-     # Validate Input ... 
-    if(!validate($title,1))
-    {
-      $erros['title'] = "Title Field Required";
+    $erros = [];
+    # Validate Input ... 
+    if (!validate($title, 1)) {
+        $erros['title'] = "Title Field Required";
     }
 
-    if(count($erros) > 0){
+    if (count($erros) > 0) {
 
         $_SESSION['messages'] = $erros;
-    }else{
+    } else {
 
-     # db Logic 
-
-     $sql = "insert into adminstype (title) values ('$title')";
-
-     $op = mysqli_query($con,$sql);
-
-     if($op){
-         header("location: index.php");
-     }else{
-         $_SESSION['messages'] = ['error try again'];
-     }
+        # db Logic 
 
 
+        $sql = "INSERT INTO `role`(`title`) VALUES ( '$title')";
+
+        $op = mysqli_query($con, $sql);
+
+        if ($op) {
+            echo "item added";
+            
+            header("Location: index.php");
+        } else {
+            echo mysqli_error($con);
+            exit();
+        }
     }
+}
 
 
- }
-
-
-
-   
-
-
-
-
-   require '../header.php';
-   require "../nav.php";
-
-?>
-
-<div id="layoutSidenav">
-
-    <?php 
-   require '../sidNav.php';
 ?>
 
 
 
-    <div id="layoutSidenav_content">
+<section class="content">
+    <div class="container-fluid">
 
+        <!-- Inline Layout | With Floating Label -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Add new role
+                        </h2>
 
-        <main>
+                    </div>
+                    <div class="body">
+                        <form method="post" action="create.php?trackID=<?php echo $trackID;?>" enctype="multipart/form-data">
+                            <div class="row clearfix">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="title">
+                                            <label class="form-label">Role Title</label>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
-            <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
+                                    <button type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
+                    <?php
+                    # Dispaly error messages .... 
 
-                   <?php 
-                        # Dispaly error messages .... 
-
-                        if(isset($_SESSION['messages'])){
-                            foreach ($_SESSION['messages'] as  $value) {
-                                # code...
-                                echo '<li class="breadcrumb-item active">'.$value.'</li>';
-                            }
-
-                            unset($_SESSION['messages']);
-                        }else{
-                        echo '<li class="breadcrumb-item active">Dashboard</li>';
-
+                    if (isset($_SESSION['messages'])) {
+                        foreach ($_SESSION['messages'] as  $value) {
+                            # code...
+                            echo '
+                            <div class="form-group form-float">
+                                    <div class="form-line focused error">
+                                        <input type="text" class="form-control" name="error" value="' . $value . '" >
+                                    </div>
+                                </div>
+                            
+                            
+                            ';
                         }
-                   
-                   ?>
 
+                        unset($_SESSION['messages']);
+                    }
 
-                </ol>
+                    ?>
 
-
-
-                <div class="container">
-
-                    <form method="post" action="<?php  echo htmlspecialchars($_SERVER['PHP_SELF']);?>"
-                        enctype="multipart/form-data">
-
-
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" name="title" class="form-control" id="exampleInputName"
-                                aria-describedby="" placeholder="Enter Title">
-                        </div>
-
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
                 </div>
-
-
-
             </div>
-        </main>
+        </div>
+        <!-- #END# Inline Layout | With Floating Label -->
+
+    </div>
+</section>
 
 
+<?php
 
-
-        <?php 
-
-    require '../footer.php';
+require '../../shared components/footer.php';
 ?>

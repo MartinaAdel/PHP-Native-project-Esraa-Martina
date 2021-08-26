@@ -65,72 +65,73 @@ $data = mysqli_fetch_assoc($op);
 
 require '../../shared components/header.php';
 require "../../shared components/nav.php";
-?>
-
-<div id="layoutSidenav">
-
-    <?php 
  require '../../shared components/sidNav.php';
 ?>
 
 
+<section class="content">
+    <div class="container-fluid">
 
-    <div id="layoutSidenav_content">
+        <!-- Inline Layout | With Floating Label -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            update role
+                        </h2>
 
+                    </div>
+                    <div class="body">
+                        <form method="post" action="edit.php?id=<?php echo $data['ID'];?>" enctype="multipart/form-data">
+                            <div class="row clearfix">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="title" value="<?php echo $data['title']; ?>">
+                                            <label class="form-label">Role Title</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-        <main>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
+                                    <button type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-            <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
+                    <?php
+                    # Dispaly error messages .... 
 
-
-                   <?php 
-                        # Dispaly error messages .... 
-
-                        if(isset($_SESSION['errormessages'])){
-                            foreach ($_SESSION['errormessages'] as  $value) {
-                                # code...
-                                echo '<li class="breadcrumb-item active">'.$value.'</li>';
-                            }
-
-                            unset($_SESSION['errormessages']);
-                        }else{
-                        echo '<li class="breadcrumb-item active">Dashboard</li>';
-
+                    if (isset($_SESSION['messages'])) {
+                        foreach ($_SESSION['messages'] as  $value) {
+                            # code...
+                            echo '
+                            <div class="form-group form-float">
+                                    <div class="form-line focused error">
+                                        <input type="text" class="form-control" name="error" value="' . $value . '" >
+                                    </div>
+                                </div>
+                            
+                            
+                            ';
                         }
-                   
-                   ?>
 
+                        unset($_SESSION['messages']);
+                    }
 
-                </ol>
+                    ?>
 
-
-
-                <div class="container">
-
-                    <form method="post" action="edit.php?id=<?php echo $data['ID'];?>"
-                        enctype="multipart/form-data">
-
-
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" name="title" value="<?php echo $data['title'];?>" class="form-control" id="exampleInputName"
-                                aria-describedby="" placeholder="Enter Title">
-                        </div>
-
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
                 </div>
-
-
-
             </div>
-        </main>
-        <?php 
+        </div>
+        <!-- #END# Inline Layout | With Floating Label -->
 
+    </div>
+</section>
+
+<?php
 require '../../shared components/footer.php';
 ?>

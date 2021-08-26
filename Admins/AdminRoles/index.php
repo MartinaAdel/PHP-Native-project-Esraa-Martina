@@ -21,11 +21,23 @@ require '../../shared components/sidNav.php';
 <section class="content">
     <div class="container-fluid">
 
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table mr-1"></i>
-                <h3>Users role</h3>
-            </div>
+    <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2 class="p-b-15">
+                            All Roles
+
+                            <?php if($userRole == 1) { ?>
+                            <a href='create.php' class='btn btn-warning m-r-1em waves-effect pull-right'>
+                                <i class="material-icons">add_box</i>
+                                <span>Add role</span>
+                            </a>
+                            <?php }?>
+
+                        </h2>
+
+                    </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -48,7 +60,7 @@ require '../../shared components/sidNav.php';
                                     <td><?php echo $rows['title']; ?></td>
 
                                     <td>
-                                        <!-- <a href='delete.php?id=<?php echo $rows['id']; ?>' class='btn btn-danger m-r-1em'>Delete</a> -->
+                                        <a href='delete.php?id=<?php echo $rows['ID']; ?>' class='btn btn-danger m-r-1em'>Delete</a>
                                         <a href='edit.php?id=<?php echo $rows['ID']; ?>' class='btn btn-primary m-r-1em'>Edit</a>
                                     </td>
 
