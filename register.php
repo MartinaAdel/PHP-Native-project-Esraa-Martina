@@ -72,7 +72,7 @@ $finalPath = '';
     
             if(move_uploaded_file($temp,$finalPath)){
     
-                $errors['image'] = 'File Uploaded';
+                // $errors['image'] = 'File Uploaded';
             }else{
     
                 $errors['image'] = 'error try again';

@@ -7,8 +7,8 @@
  require '../../shared components/header.php';
  require "../../shared components/nav.php";
 
-$sql = "select * from adminstype";
-$op  =  mysqli_query($con, $sql);
+// $sql = "select * from adminstype";
+// $op  =  mysqli_query($con, $sql);
 
   $sql = "select * from role";
   $op  =  mysqli_query($con,$sql);
@@ -19,12 +19,6 @@ $op  =  mysqli_query($con, $sql);
 <?php 
  require '../../shared components/sidNav.php';
  ?>
-
-    <?php
-    require '../sidNav.php';
-    ?>
-
-
 
     <div id="layoutSidenav_content">
         <main>
@@ -101,11 +95,7 @@ $op  =  mysqli_query($con, $sql);
                             </div>
                         </div>
                     </div>
-                </main>
-               
-               
-           
-                
+                </main>                
 <?php 
 
 require '../../shared components/footer.php';
