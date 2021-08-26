@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $job = CleanInputs($_POST['job']);
     $education = CleanInputs($_POST['education']);
     $roleID   =  filter_var($_POST['role_id'], FILTER_SANITIZE_NUMBER_INT);
-    $createdDate = "Created date is " . date("Y-m-d h:i:sa", $d);
+    $createdDate =  date('Y-m-d H:i:s');
 
 
     if (empty($firstname)) {
@@ -72,18 +72,18 @@ $finalPath = '';
     
             if(move_uploaded_file($temp,$finalPath)){
     
-              echo 'File Uploaded';
+                $errors['image'] = 'File Uploaded';
             }else{
     
-              echo 'error try again';
+                $errors['image'] = 'error try again';
             }
         }else{
     
-          echo 'Invalid Extension';
+            $errors['image'] = 'Invalid Extension';
         }
      }else{
     
-          echo 'File Required';
+        $errors['image'] = 'File Required';
          }  
 
     if (count($errors) <= 0) {
@@ -94,7 +94,7 @@ $finalPath = '';
         // code 
         $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
 
-        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir , job , education, createdDate,modifiedDate) values ('$firstname','$lastName','$email','$address','$phone','$password','$roleID' , '$finalPath' , '$job','$education','$createdDate','$createdDate')";
+        $sql = "insert into user (Fname ,Lnme,email,address,phone,password,roleID , img_dir , job , education, createdDate,modifiedDate) values ('$firstname','$lastName','$email','$address','$phone','$password',$roleID , '$finalPath' , '$job','$education','$createdDate','$createdDate')";
 
         $op =  mysqli_query($con, $sql);
 
